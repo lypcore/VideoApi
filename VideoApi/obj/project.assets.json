@@ -13057,11 +13057,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Film\\VideoApi\\VideoApi\\VideoApi.csproj",
+      "projectUniqueName": "G:\\gitvideo\\VideoApi\\VideoApi\\VideoApi\\VideoApi.csproj",
       "projectName": "VideoApi",
-      "projectPath": "G:\\Film\\VideoApi\\VideoApi\\VideoApi.csproj",
+      "projectPath": "G:\\gitvideo\\VideoApi\\VideoApi\\VideoApi\\VideoApi.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "G:\\Film\\VideoApi\\VideoApi\\obj\\",
+      "outputPath": "G:\\gitvideo\\VideoApi\\VideoApi\\VideoApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

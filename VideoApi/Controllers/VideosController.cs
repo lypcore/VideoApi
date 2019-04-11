@@ -59,7 +59,7 @@ namespace VideoApi.Controllers
         /// <summary>
         /// 通过电影名搜索视频
         /// </summary>
-        /// <param name="page"></param>
+        /// <param name="input">电影名字</param>
         /// <returns></returns>
         [HttpPost("~/api/Search")]
         public async Task<List<VideoListDto>> Search([FromBody] VideoSearchInput input)

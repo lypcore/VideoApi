@@ -28,7 +28,7 @@
             <summary>
             通过电影名搜索视频
             </summary>
-            <param name="page"></param>
+            <param name="input">电影名字</param>
             <returns></returns>
         </member>
         <member name="T:VideoApi.Models.AnalysisUrl">
