@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VideoApi</name>
+    </assembly>
+    <members>
+        <member name="M:VideoApi.Controllers.VideosController.GetAll">
+            <summary>
+            获取全部视频
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VideoApi.Controllers.VideosController.GetVideo(VideoApi.Models.PageModel)">
+            <summary>
+            通过分页获取视频
+            </summary>
+            <param name="page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VideoApi.Controllers.VideosController.GetOnUrl(VideoApi.Services.Dto.VideoIdDto)">
+            <summary>
+            获取视频播放地址
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:VideoApi.Models.AnalysisUrl">
+            <summary>
+            解析视频地址
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.AnalysisUrl.Id">
+            <summary>
+            解析Url编号
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.AnalysisUrl.Url">
+            <summary>
+            解析地址链接
+            </summary>
+        </member>
+        <member name="T:VideoApi.Models.PageModel">
+            <summary>
+            分页
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.PageModel.PagSize">
+            <summary>
+            每页条数
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.PageModel.PageCurrent">
+            <summary>
+            当前页
+            </summary>
+        </member>
+        <member name="T:VideoApi.Models.Video">
+            <summary>
+            视频
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.Video.Id">
+            <summary>
+            视频编号
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.Video.Title">
+            <summary>
+            视频名称
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.Video.Img">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.Video.Url">
+            <summary>
+            视频链接
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.Video.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.Video.PlayCount">
+            <summary>
+            播放次数
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.Video.IsRecommend">
+            <summary>
+            是否推荐
+            </summary>
+        </member>
+        <member name="M:VideoApi.Services.IVideoService.GetAll">
+            <summary>
+            获取所有视频
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VideoApi.Services.IVideoService.GetVideo(VideoApi.Models.PageModel)">
+            <summary>
+            通过分页获取视频
+            </summary>
+            <param name="page">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:VideoApi.Services.IVideoService.GetVideoById(VideoApi.Services.Dto.VideoIdDto)">
+            <summary>
+            通过Id获取视频
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VideoApi.Services.VideoService.GetAll">
+            <summary>
+            获取所有视频
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VideoApi.Services.VideoService.GetVideo(VideoApi.Models.PageModel)">
+            <summary>
+            通过分页获取视频
+            </summary>
+            <param name="page">分页</param>
+            <returns></returns>
+        </member>
+        <member name="M:VideoApi.Services.VideoService.GetVideoById(VideoApi.Services.Dto.VideoIdDto)">
+            <summary>
+            通过Id获取视频
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
