@@ -10,14 +10,14 @@ namespace VideoApi.Models
     /// </summary>
     public class PageModel
     {
-        /// <summary>
-        /// 每页条数
-        /// </summary>
-        public int PagSize { get; set; }
+        // /// <summary>
+        // /// 每页条数
+        // /// </summary>
+        // public int PagSize { get; set; }
 
-        /// <summary>
-        /// 当前页
-        /// </summary>
-        public int PageCurrent { get; set; }
+        // /// <summary>
+        // /// 当前页
+        // /// </summary>
+        // public int PageCurrent { get; set; }
     }
 }

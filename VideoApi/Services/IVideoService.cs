@@ -16,23 +16,24 @@ namespace VideoApi.Services
         /// <summary>
         /// 通过分页获取视频
         /// </summary>
-        /// <param name="page">分页信息</param>
+        /// <param name="pageCurrent">分页信息</param>
+         /// <param name="pageSize">分页信息</param>
         /// <returns></returns>
-        Task<List<VideoListDto>> GetVideo(PageModel page);
+        Task<List<VideoListDto>> GetVideo(int pageCurrent,int pageSize);
 
         /// <summary>
         /// 通过Id获取视频
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        Task<VideoDto> GetVideoById(VideoIdDto dto);
+        Task<VideoDto> GetVideoById(int Id);
 
         /// <summary>
         /// 搜索视频
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<List<VideoListDto>> Search(VideoSearchInput input);
+        Task<List<VideoListDto>> Search(string input);
 
     }
 }

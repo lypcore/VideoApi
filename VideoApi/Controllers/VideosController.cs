@@ -35,12 +35,13 @@ namespace VideoApi.Controllers
         /// <summary>
         /// 通过分页获取视频
         /// </summary>
-        /// <param name="page"></param>
+        /// <param name="pageCurrent"></param>
+        /// <param name="pageSize"></param>
         /// <returns></returns>
-        [HttpPost("~/api/GetVideo")]
-        public async Task<List<VideoListDto>> GetVideo([FromBody] PageModel page)
+        [HttpGet("~/api/GetVideo")]
+        public async Task<List<VideoListDto>> GetVideo(int pageCurrent,int pageSize)
         {
-            var videos = await _videoService.GetVideo(page);
+            var videos = await _videoService.GetVideo(pageCurrent,pageSize);
             return videos;
         }
 
@@ -49,8 +50,8 @@ namespace VideoApi.Controllers
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [HttpPost("~/api/GetOnUrl")]
-        public async Task<VideoDto> GetOnUrl([FromBody] VideoIdDto value)
+        [HttpGet("~/api/GetOnUrl")]
+        public async Task<VideoDto> GetOnUrl(int value)
         {
             var video = await _videoService.GetVideoById(value);
             return video;
@@ -61,8 +62,8 @@ namespace VideoApi.Controllers
         /// </summary>
         /// <param name="input">电影名字</param>
         /// <returns></returns>
-        [HttpPost("~/api/Search")]
-        public async Task<List<VideoListDto>> Search([FromBody] VideoSearchInput input)
+        [HttpGet("~/api/Search")]
+        public async Task<List<VideoListDto>> Search(string input)
         {
             var videos = await _videoService.Search(input);
             return videos;

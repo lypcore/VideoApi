@@ -38,20 +38,24 @@ namespace VideoApi.Services
         /// <summary>
         /// 通过分页获取视频
         /// </summary>
-        /// <param name="page">分页</param>
+        /// <param name="pageCurrent">pageCurrent</param>
+        /// <param name="pageSize">pagSize</param>
         /// <returns></returns>
-        public async Task<List<VideoListDto>> GetVideo(PageModel page)
+        public async Task<List<VideoListDto>> GetVideo(int pageCurrent,int pageSize)
         {
-            if (page.PageCurrent <= 0)
-                page.PageCurrent = 1;
+            
+            if (pageCurrent <= 0)
+                pageCurrent = 1;
 
-            if (page.PagSize <= 0)
-                page.PagSize = 30;
+            if (pageSize <= 0)
+                pageSize = 30;
 
-            //每页尺寸
-            int pagSize = page.PagSize;
-            //当前页
-            int pageCurrent = page.PageCurrent-1;
+            // //每页尺寸
+            // int pagSize = page.PagSize;
+            int size=pageSize;
+            // //当前页
+            // int pageCurrent = page.PageCurrent-1;
+            int page=pageCurrent-1;
             //总条数
             int count = _context.Videos.Count();
 
@@ -61,7 +65,7 @@ namespace VideoApi.Services
                 Name = v.Title,
                 Image = v.Img,
                 Url=v.Url
-            }).Skip(pageCurrent* pagSize).Take(pagSize).ToListAsync();
+            }).Skip(page* size).Take(size).ToListAsync();
 
             return videos;
         }
@@ -69,11 +73,11 @@ namespace VideoApi.Services
         /// <summary>
         /// 通过Id获取视频
         /// </summary>
-        /// <param name="dto"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        public async Task<VideoDto> GetVideoById(VideoIdDto dto)
+        public async Task<VideoDto> GetVideoById(int Id)
         {
-            var video = await _context.Videos.Where(x=>x.Id== dto.Id).Select(v => new VideoDto
+            var video = await _context.Videos.Where(x=>x.Id==Id).Select(v => new VideoDto
             {
                 Url = v.Url
             }).FirstAsync();
@@ -85,29 +89,15 @@ namespace VideoApi.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<List<VideoListDto>> Search(VideoSearchInput input)
+        public async Task<List<VideoListDto>> Search(string input)
         {
-            PageModel page = new PageModel();
-            if (page.PageCurrent <= 0)
-                page.PageCurrent = 1;
-
-            if (page.PagSize <= 0)
-                page.PagSize = 30;
-
-            //每页尺寸
-            int pagSize = page.PagSize;
-            //当前页
-            int pageCurrent = page.PageCurrent - 1;
-            //总条数
-            int count = _context.Videos.Count();
-
-            var videos = await _context.Videos.Where(x=>x.Title.Contains(input.Name)).OrderByDescending(o=>o.CreateTime).Select(v => new VideoListDto
+            var videos = await _context.Videos.Where(x=>x.Title.Contains(input)).OrderByDescending(o=>o.CreateTime).Select(v => new VideoListDto
             {
                 Id = v.Id,
                 Name = v.Title,
                 Image = v.Img,
                 Url = v.Url
-            }).Skip(pageCurrent * pagSize).Take(pagSize).ToListAsync();
+            }).ToListAsync();
 
             return videos;
         }

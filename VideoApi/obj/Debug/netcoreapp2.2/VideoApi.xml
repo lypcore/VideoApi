@@ -10,21 +10,22 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Controllers.VideosController.GetVideo(VideoApi.Models.PageModel)">
+        <member name="M:VideoApi.Controllers.VideosController.GetVideo(System.Int32,System.Int32)">
             <summary>
             通过分页获取视频
             </summary>
-            <param name="page"></param>
+            <param name="pageCurrent"></param>
+            <param name="pageSize"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Controllers.VideosController.GetOnUrl(VideoApi.Services.Dto.VideoIdDto)">
+        <member name="M:VideoApi.Controllers.VideosController.GetOnUrl(System.Int32)">
             <summary>
             获取视频播放地址
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Controllers.VideosController.Search(VideoApi.Services.Dto.VideoSearchInput)">
+        <member name="M:VideoApi.Controllers.VideosController.Search(System.String)">
             <summary>
             通过电影名搜索视频
             </summary>
@@ -49,16 +50,6 @@
         <member name="T:VideoApi.Models.PageModel">
             <summary>
             分页
-            </summary>
-        </member>
-        <member name="P:VideoApi.Models.PageModel.PagSize">
-            <summary>
-            每页条数
-            </summary>
-        </member>
-        <member name="P:VideoApi.Models.PageModel.PageCurrent">
-            <summary>
-            当前页
             </summary>
         </member>
         <member name="T:VideoApi.Models.Video">
@@ -142,21 +133,22 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.IVideoService.GetVideo(VideoApi.Models.PageModel)">
+        <member name="M:VideoApi.Services.IVideoService.GetVideo(System.Int32,System.Int32)">
             <summary>
             通过分页获取视频
             </summary>
-            <param name="page">分页信息</param>
+            <param name="pageCurrent">分页信息</param>
+            <param name="pageSize">分页信息</param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.IVideoService.GetVideoById(VideoApi.Services.Dto.VideoIdDto)">
+        <member name="M:VideoApi.Services.IVideoService.GetVideoById(System.Int32)">
             <summary>
             通过Id获取视频
             </summary>
-            <param name="dto"></param>
+            <param name="Id"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.IVideoService.Search(VideoApi.Services.Dto.VideoSearchInput)">
+        <member name="M:VideoApi.Services.IVideoService.Search(System.String)">
             <summary>
             搜索视频
             </summary>
@@ -169,21 +161,22 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.VideoService.GetVideo(VideoApi.Models.PageModel)">
+        <member name="M:VideoApi.Services.VideoService.GetVideo(System.Int32,System.Int32)">
             <summary>
             通过分页获取视频
             </summary>
-            <param name="page">分页</param>
+            <param name="pageCurrent">pageCurrent</param>
+            <param name="pageSize">pagSize</param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.VideoService.GetVideoById(VideoApi.Services.Dto.VideoIdDto)">
+        <member name="M:VideoApi.Services.VideoService.GetVideoById(System.Int32)">
             <summary>
             通过Id获取视频
             </summary>
-            <param name="dto"></param>
+            <param name="Id"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.VideoService.Search(VideoApi.Services.Dto.VideoSearchInput)">
+        <member name="M:VideoApi.Services.VideoService.Search(System.String)">
             <summary>
             通过电影名搜索视频
             </summary>
