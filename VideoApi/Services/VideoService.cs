@@ -23,65 +23,128 @@ namespace VideoApi.Services
         /// 获取所有视频
         /// </summary>
         /// <returns></returns>
-        public async Task<List<VideoListDto>> GetAll()
+        public async Task<CommonResults<VideoListDto>> GetAll()
         {
-
-            var videos = await _context.Videos.Select(v => new VideoListDto
+            var result = new CommonResults<VideoListDto>();
+            try
             {
-                Id = v.Id,
-                Name = v.Title,
-                Image = v.Img
-            }).ToListAsync();
-            return videos;
+                var videos = await _context.Videos.Select(v => new VideoListDto
+                {
+                    Id = v.Id,
+                    Name = v.Title,
+                    Image = v.Img
+                }).ToArrayAsync();
+
+                result.scode = "200";
+                result.remark = "查询数据成功";
+                result.results = videos;
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                result.scode = "500";
+                result.remark = "服务器端错误:" + ex.Message;
+                return result;
+            }
         }
 
         /// <summary>
         /// 通过分页获取视频
         /// </summary>
-        /// <param name="pageCurrent">pageCurrent</param>
-        /// <param name="pageSize">pagSize</param>
+        /// <param name="page"></param>
         /// <returns></returns>
-        public async Task<List<VideoListDto>> GetVideo(int pageCurrent,int pageSize)
-        {
-            
-            if (pageCurrent <= 0)
-                pageCurrent = 1;
-
-            if (pageSize <= 0)
-                pageSize = 30;
-
-            // //每页尺寸
-            // int pagSize = page.PagSize;
-            int size=pageSize;
-            // //当前页
-            // int pageCurrent = page.PageCurrent-1;
-            int page=pageCurrent-1;
-            //总条数
-            int count = _context.Videos.Count();
-
-            var videos = await _context.Videos.Select(v => new VideoListDto
+        public async Task<PcCommonResults<VideoListDto>> GetVideo(PageModel page)
+        {         
+            var result = new PcCommonResults<VideoListDto>();
+            try
             {
-                Id = v.Id,
-                Name = v.Title,
-                Image = v.Img,
-                Url=v.Url
-            }).Skip(page* size).Take(size).ToListAsync();
+                var videoList = await _context.Videos.OrderByDescending(o => o.CreateTime).ToArrayAsync();
+                if (page.ShowCount <= 0)
+                    page.ShowCount = 30;
 
-            return videos;
+                if (page.Page <= 0)
+                    page.Page = 1;
+
+                // //每页尺寸
+                int pagSize = page.ShowCount;
+                // //当前页
+                int pageCurrent = page.Page - 1;
+                //总条数
+                result.Count = videoList.Count();
+
+                if (result.Count == 0)
+                {
+                    result.scode = "200";
+                    result.remark = "查询数据成功";
+                    result.results = null;
+                    return result;
+                }
+
+                var videos = videoList.Select(v => new VideoListDto
+                {
+                    Id = v.Id,
+                    Name = v.Title,
+                    Image = v.Img
+                }).Skip(pageCurrent * pagSize).Take(pagSize).ToArray();
+
+                result.scode = "200";
+                result.remark = "查询数据成功";
+                result.results = videos;
+            }
+            catch (Exception ex)
+            {
+                result.scode = "500";
+                result.remark = "服务器端错误:" + ex.Message;
+            }
+            return result;
         }
 
         /// <summary>
-        /// 通过Id获取视频
+        /// 通过Id获取视频Url
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public async Task<VideoDto> GetVideoById(int Id)
-        {
-            var video = await _context.Videos.Where(x=>x.Id==Id).Select(v => new VideoDto
+        public async Task<CommonResult<VideoDto>> GetOnPalyUrl(ById value)
+        {           
+            var result = new CommonResult<VideoDto>();
+            try
             {
-                Url = v.Url
-            }).FirstAsync();
-            return video;
+                var video = await _context.Videos.Where(x => x.Id == value.Id).FirstAsync();
+
+                if (string.IsNullOrEmpty(video.Url))
+                {
+                    result.scode = "200";
+                    result.remark = "查询数据成功";
+                    result.result = null;
+
+                    return result;
+                }
+
+                var analysisUrls = await _context.AnalysisUrls.ToArrayAsync();
+                var analysisUrl = analysisUrls.OrderBy(x => Guid.NewGuid()).First();
+
+                analysisUrl.PlayCount += 1;
+                video.PlayCount += 1;
+
+                _context.SaveChanges();
+
+                VideoDto videoUrl = new VideoDto
+                {
+                    Url = analysisUrl.Url+video.Url
+                };
+
+                result.scode = "200";
+                result.remark = "查询数据成功";
+                result.result = videoUrl;
+            }
+            catch (Exception ex)
+            {
+                result.scode = "500";
+                result.remark = "服务器端错误:" + ex.Message;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -89,17 +152,53 @@ namespace VideoApi.Services
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<List<VideoListDto>> Search(string input)
-        {
-            var videos = await _context.Videos.Where(x=>x.Title.Contains(input)).OrderByDescending(o=>o.CreateTime).Select(v => new VideoListDto
+        public async Task<PcCommonResults<VideoListDto>> Search(SearchVideo input)
+        {          
+            var result = new PcCommonResults<VideoListDto>();
+            try
             {
-                Id = v.Id,
-                Name = v.Title,
-                Image = v.Img,
-                Url = v.Url
-            }).ToListAsync();
+                var videoList = await _context.Videos.Where(x => x.Title.Contains(input.Title)).OrderByDescending(o => o.CreateTime).ToListAsync();
 
-            return videos;
+                if (input.ShowCount <= 0)
+                    input.ShowCount = 30;
+
+                if (input.Page <= 0)
+                    input.Page = 1;
+
+                // //每页尺寸
+                int pagSize = input.ShowCount;
+                // //当前页
+                int pageCurrent = input.Page - 1;
+  
+                //总条数
+                result.Count = videoList.Count;
+
+                if (result.Count == 0)
+                {
+                    result.scode = "200";
+                    result.remark = "查询数据成功";
+                    result.results = null;
+                    return result;
+                }
+
+                var videos = videoList.Select(v => new VideoListDto
+                {
+                        Id = v.Id,
+                        Name = v.Title,
+                        Image = v.Img
+                });
+
+                result.scode = "200";
+                result.remark = "查询数据成功";
+                result.results = videos.Skip(pageCurrent * pagSize).Take(pagSize).ToArray();
+
+            }
+            catch (Exception ex)
+            {
+                result.scode = "500";
+                result.remark = "服务器端错误:" + ex.Message;
+            }
+            return result;
         }
     }
 }

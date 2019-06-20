@@ -20,5 +20,14 @@ namespace VideoApi.Models
         /// </summary>
         public string Url { get; set; }
 
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// 链接使用次数
+        /// </summary>
+        public int PlayCount { get; set; }
     }
 }

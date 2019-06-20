@@ -21,10 +21,5 @@ namespace VideoApi.Services.Dto
         /// 视频图片
         /// </summary>
         public string Image { get; set; }
-
-        /// <summary>
-        /// 视频链接
-        /// </summary>
-        public string Url { get; set; }
     }
 }

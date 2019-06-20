@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VideoApi.Models;
 using VideoApi.Services;
@@ -10,7 +12,6 @@ namespace VideoApi.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [EnableCors("any")]
     [ApiController]
     public class VideosController : ControllerBase
     {
@@ -26,7 +27,7 @@ namespace VideoApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("~/api/GetAll")]
-        public async Task<List<VideoListDto>> GetAll()
+        public async Task<CommonResults<VideoListDto>> GetAll()
         {
             var videos = await _videoService.GetAll();
             return videos;
@@ -35,13 +36,15 @@ namespace VideoApi.Controllers
         /// <summary>
         /// 通过分页获取视频
         /// </summary>
-        /// <param name="pageCurrent"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="page">分页</param>
         /// <returns></returns>
-        [HttpGet("~/api/GetVideo")]
-        public async Task<List<VideoListDto>> GetVideo(int pageCurrent,int pageSize)
+        [HttpPost("~/api/GetVideo")]
+        public async Task<PcCommonResults<VideoListDto>> GetVideo([FromBody] PageModel page)
         {
-            var videos = await _videoService.GetVideo(pageCurrent,pageSize);
+            HttpClient httpClient = new HttpClient();//http对象
+            var param = Request;
+
+            var videos = await _videoService.GetVideo(page);
             return videos;
         }
 
@@ -50,10 +53,10 @@ namespace VideoApi.Controllers
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [HttpGet("~/api/GetOnUrl")]
-        public async Task<VideoDto> GetOnUrl(int value)
+        [HttpPost("~/api/GetOnPalyUrl")]
+        public async Task<CommonResult<VideoDto>> GetOnPalyUrl([FromBody] ById value)
         {
-            var video = await _videoService.GetVideoById(value);
+            var video = await _videoService.GetOnPalyUrl(value);
             return video;
         }
 
@@ -62,8 +65,8 @@ namespace VideoApi.Controllers
         /// </summary>
         /// <param name="input">电影名字</param>
         /// <returns></returns>
-        [HttpGet("~/api/Search")]
-        public async Task<List<VideoListDto>> Search(string input)
+        [HttpPost("~/api/Search")]
+        public async Task<PcCommonResults<VideoListDto>> Search([FromBody] SearchVideo input)
         {
             var videos = await _videoService.Search(input);
             return videos;

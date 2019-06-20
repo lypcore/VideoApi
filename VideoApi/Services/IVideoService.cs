@@ -11,29 +11,28 @@ namespace VideoApi.Services
         /// 获取所有视频
         /// </summary>
         /// <returns></returns>
-        Task<List<VideoListDto>> GetAll();
+        Task<CommonResults<VideoListDto>> GetAll();
 
         /// <summary>
         /// 通过分页获取视频
         /// </summary>
-        /// <param name="pageCurrent">分页信息</param>
-         /// <param name="pageSize">分页信息</param>
+        /// <param name="page">分页</param>
         /// <returns></returns>
-        Task<List<VideoListDto>> GetVideo(int pageCurrent,int pageSize);
+        Task<PcCommonResults<VideoListDto>> GetVideo(PageModel page);
 
         /// <summary>
-        /// 通过Id获取视频
+        /// 通过Id获取视频Url
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        Task<VideoDto> GetVideoById(int Id);
+        Task<CommonResult<VideoDto>> GetOnPalyUrl(ById value);
 
         /// <summary>
         /// 搜索视频
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<List<VideoListDto>> Search(string input);
+        Task<PcCommonResults<VideoListDto>> Search(SearchVideo input);
 
     }
 }

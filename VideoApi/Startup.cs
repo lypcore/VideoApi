@@ -27,19 +27,34 @@ namespace VideoApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<VideoContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("Context")));
+                     options.UseMySql(Configuration.GetConnectionString("Context")));
             services.AddScoped<VideoService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            //配置跨域
-            services.AddCors(options => 
-            {
-                options.AddPolicy("any",buider=>{
-                    buider.AllowAnyOrigin()//允许任何来源的主机访问
-                    .AllowAnyMethod()
-                    .AllowAnyMethod()
-                    .AllowCredentials();//指定处理cookie
-                });
+            ////配置跨域
+            //services.AddCors(options => 
+            //{
+            //    options.AddPolicy("any",buider=>{
+            //        buider.AllowAnyOrigin()//允许任何来源的主机访问
+            //        .AllowAnyMethod()
+            //        .AllowAnyMethod()
+            //        .AllowCredentials();//指定处理cookie
+            //    });
                  
+            //});
+
+            //处理跨域
+            services.AddCors(options =>
+            {
+                // Policy 名称 CorsPolicy 是自定的，可以自己改
+                //跨域规则的名称
+                options.AddPolicy("AllowAllOrigins", policy =>
+                {
+                    // 设定允许跨域的来源，有多个的话可以用 `,` 隔开
+                    policy.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin()//允许所有来源的主机访问
+                        .AllowCredentials();//指定处理cookie
+                });
             });
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -88,6 +103,7 @@ namespace VideoApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Video API V1");
             });
+            app.UseCors("AllowAllOrigins");
             app.UseMvc();
         }
     }

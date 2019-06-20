@@ -3,25 +3,19 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace VideoApi.Migrations
 {
-    public partial class _2019040701st : Migration
+    public partial class _2st : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
                 name: "CreateTime",
-                table: "Videos",
+                table: "AnalysisUrls",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<int>(
-                name: "IsRecommend",
-                table: "Videos",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
                 name: "PlayCount",
-                table: "Videos",
+                table: "AnalysisUrls",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -30,15 +24,11 @@ namespace VideoApi.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "CreateTime",
-                table: "Videos");
-
-            migrationBuilder.DropColumn(
-                name: "IsRecommend",
-                table: "Videos");
+                table: "AnalysisUrls");
 
             migrationBuilder.DropColumn(
                 name: "PlayCount",
-                table: "Videos");
+                table: "AnalysisUrls");
         }
     }
 }

@@ -10,22 +10,21 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Controllers.VideosController.GetVideo(System.Int32,System.Int32)">
+        <member name="M:VideoApi.Controllers.VideosController.GetVideo(VideoApi.Models.PageModel)">
             <summary>
             通过分页获取视频
             </summary>
-            <param name="pageCurrent"></param>
-            <param name="pageSize"></param>
+            <param name="page">分页</param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Controllers.VideosController.GetOnUrl(System.Int32)">
+        <member name="M:VideoApi.Controllers.VideosController.GetOnPalyUrl(VideoApi.Services.Dto.ById)">
             <summary>
             获取视频播放地址
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Controllers.VideosController.Search(System.String)">
+        <member name="M:VideoApi.Controllers.VideosController.Search(VideoApi.Services.Dto.SearchVideo)">
             <summary>
             通过电影名搜索视频
             </summary>
@@ -47,9 +46,120 @@
             解析地址链接
             </summary>
         </member>
+        <member name="P:VideoApi.Models.AnalysisUrl.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.AnalysisUrl.PlayCount">
+            <summary>
+            链接使用次数
+            </summary>
+        </member>
         <member name="T:VideoApi.Models.PageModel">
             <summary>
-            分页
+            分页公共参数
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.PageModel.Page">
+            <summary>
+            第几页 默认1
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:VideoApi.Models.PageModel.ShowCount">
+            <summary>
+            每页显示多少条
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VideoApi.Models.CommonResult">
+            <summary>
+                通用返回结果
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.CommonResult.scode">
+            <summary>
+                状态码
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.CommonResult.remark">
+            <summary>
+                备注信息
+            </summary>
+        </member>
+        <member name="T:VideoApi.Models.CommonResult`1">
+            <summary>
+                包含单条结果的结果对象
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.CommonResult`1.result">
+            <summary>
+                单条结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VideoApi.Models.CommonResults`1">
+            <summary>
+                包含多条结果的结果对象
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.CommonResults`1.results">
+            <summary>
+                多条结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VideoApi.Models.PageCommonResults`1">
+            <summary>
+                包含多条结果的结果对象 增加最后一页参数
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.PageCommonResults`1.results">
+            <summary>
+                多条结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:VideoApi.Models.PageCommonResults`1.lastpage">
+            <summary>
+              1 代表最后一页数据 0 还有数据加载
+            </summary>
+        </member>
+        <member name="T:VideoApi.Models.PcCommonResults`1">
+            <summary>
+                包含多条结果的结果对象 增加最后一页参数
+            </summary>
+        </member>
+        <member name="P:VideoApi.Models.PcCommonResults`1.results">
+            <summary>
+                多条结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:VideoApi.Models.PcCommonResults`1.Count">
+            <summary>
+              总条数
+            </summary>
+        </member>
+        <member name="T:VideoApi.Models.CommonRequest">
+            <summary>
+                通用请求结构
+            </summary>
+        </member>
+        <member name="F:VideoApi.Models.CommonRequest.Page">
+            <summary>
+                第几页
+            </summary>
+        </member>
+        <member name="F:VideoApi.Models.CommonRequest.PageSize">
+            <summary>
+                每页条数
+            </summary>
+        </member>
+        <member name="F:VideoApi.Models.CommonRequest.Search">
+            <summary>
+                查找的关键字
             </summary>
         </member>
         <member name="T:VideoApi.Models.Video">
@@ -92,6 +202,26 @@
             是否推荐
             </summary>
         </member>
+        <member name="T:VideoApi.Services.Dto.ById">
+            <summary>
+            查询Id
+            </summary>
+        </member>
+        <member name="P:VideoApi.Services.Dto.ById.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="T:VideoApi.Services.Dto.SearchVideo">
+            <summary>
+            搜索
+            </summary>
+        </member>
+        <member name="P:VideoApi.Services.Dto.SearchVideo.Title">
+            <summary>
+            电影名
+            </summary>
+        </member>
         <member name="P:VideoApi.Services.Dto.VideoDto.Url">
             <summary>
             视频播放地址
@@ -117,11 +247,6 @@
             视频图片
             </summary>
         </member>
-        <member name="P:VideoApi.Services.Dto.VideoListDto.Url">
-            <summary>
-            视频链接
-            </summary>
-        </member>
         <member name="P:VideoApi.Services.Dto.VideoSearchInput.Name">
             <summary>
             搜索电影名
@@ -133,22 +258,21 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.IVideoService.GetVideo(System.Int32,System.Int32)">
+        <member name="M:VideoApi.Services.IVideoService.GetVideo(VideoApi.Models.PageModel)">
             <summary>
             通过分页获取视频
             </summary>
-            <param name="pageCurrent">分页信息</param>
-            <param name="pageSize">分页信息</param>
+            <param name="page">分页</param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.IVideoService.GetVideoById(System.Int32)">
+        <member name="M:VideoApi.Services.IVideoService.GetOnPalyUrl(VideoApi.Services.Dto.ById)">
             <summary>
-            通过Id获取视频
+            通过Id获取视频Url
             </summary>
-            <param name="Id"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.IVideoService.Search(System.String)">
+        <member name="M:VideoApi.Services.IVideoService.Search(VideoApi.Services.Dto.SearchVideo)">
             <summary>
             搜索视频
             </summary>
@@ -161,22 +285,21 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.VideoService.GetVideo(System.Int32,System.Int32)">
+        <member name="M:VideoApi.Services.VideoService.GetVideo(VideoApi.Models.PageModel)">
             <summary>
             通过分页获取视频
             </summary>
-            <param name="pageCurrent">pageCurrent</param>
-            <param name="pageSize">pagSize</param>
+            <param name="page"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.VideoService.GetVideoById(System.Int32)">
+        <member name="M:VideoApi.Services.VideoService.GetOnPalyUrl(VideoApi.Services.Dto.ById)">
             <summary>
-            通过Id获取视频
+            通过Id获取视频Url
             </summary>
-            <param name="Id"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:VideoApi.Services.VideoService.Search(System.String)">
+        <member name="M:VideoApi.Services.VideoService.Search(VideoApi.Services.Dto.SearchVideo)">
             <summary>
             通过电影名搜索视频
             </summary>
